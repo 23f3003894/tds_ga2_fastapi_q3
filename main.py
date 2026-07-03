@@ -8,10 +8,10 @@ from dotenv import load_dotenv
 # 1. DEFAULT CONFIG
 
 config = {
-    "port": 8000,
-    "workers": 1,
-    "debug": False,
-    "log_level": "info",
+    "port": 8351, #8000
+    "workers": 8,  #1
+    "debug": True,  #False
+    "log_level": "debug",  #info
     "api_key": "default-secret-000"
 }
 
@@ -19,50 +19,50 @@ config = {
 # 2. YAML CONFIG
 
 
-yaml_file = "config.development.yaml"
+# yaml_file = "config.development.yaml"
 
-if os.path.exists(yaml_file):
-    with open(yaml_file, "r") as f:
-        yaml_config = yaml.safe_load(f) or {}
-        config.update(yaml_config)
-
-
-# 3. .ENV
+# if os.path.exists(yaml_file):
+#     with open(yaml_file, "r") as f:
+#         yaml_config = yaml.safe_load(f) or {}
+#         config.update(yaml_config)
 
 
-load_dotenv()
-
-env_mapping = {
-    "APP_PORT": "port",
-    "NUM_WORKERS": "workers",      # Alias
-    "APP_DEBUG": "debug",
-    "APP_LOG_LEVEL": "log_level",
-    "APP_API_KEY": "api_key"
-}
-
-for env_key, config_key in env_mapping.items():
-    value = os.getenv(env_key)
-
-    if value is not None:
-        config[config_key] = value
+# # 3. .ENV
 
 
-# 4. OS ENVIRONMENT VARIABLES (APP_* prefix)
+# load_dotenv()
+
+# env_mapping = {
+#     "APP_PORT": "port",
+#     "NUM_WORKERS": "workers",      # Alias
+#     "APP_DEBUG": "debug",
+#     "APP_LOG_LEVEL": "log_level",
+#     "APP_API_KEY": "api_key"
+# }
+
+# for env_key, config_key in env_mapping.items():
+#     value = os.getenv(env_key)
+
+#     if value is not None:
+#         config[config_key] = value
 
 
-os_mapping = {
-    "APP_PORT": "port",
-    "APP_WORKERS": "workers",
-    "APP_DEBUG": "debug",
-    "APP_LOG_LEVEL": "log_level",
-    "APP_API_KEY": "api_key"
-}
+# # 4. OS ENVIRONMENT VARIABLES (APP_* prefix)
 
-for env_key, config_key in os_mapping.items():
-    value = os.environ.get(env_key)
 
-    if value is not None:
-        config[config_key] = value
+# os_mapping = {
+#     "APP_PORT": "port",
+#     "APP_WORKERS": "workers",
+#     "APP_DEBUG": "debug",
+#     "APP_LOG_LEVEL": "log_level",
+#     "APP_API_KEY": "api_key"
+# }
+
+# for env_key, config_key in os_mapping.items():
+#     value = os.environ.get(env_key)
+
+#     if value is not None:
+#         config[config_key] = value
 
 
 # TYPE CONVERSION
